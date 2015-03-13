@@ -14,12 +14,17 @@
 ActiveRecord::Schema.define(version: 20150312234845) do
 
   create_table "user_profiles", force: true do |t|
+    t.integer  "user_id"
     t.date     "start_date"
     t.string   "department"
     t.integer  "floor"
+    t.string   "last_name"
+    t.string   "first_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "user_profiles", ["user_id"], name: "index_user_profiles_on_user_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

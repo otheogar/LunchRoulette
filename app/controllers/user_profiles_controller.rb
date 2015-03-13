@@ -9,7 +9,7 @@ class UserProfilesController < ApplicationController
   end
 
   def show
-    respond_with(@user_profile)
+    redirect_to :root
   end
 
   def new
@@ -21,9 +21,16 @@ class UserProfilesController < ApplicationController
   end
 
   def create
-    @user_profile = UserProfile.new(user_profile_params)
-    @user_profile.save
-    respond_with(@user_profile)
+    @user_profile = UserProfile.where(user_id: current_user_id).first
+    p 'OANA'
+    p @user_profile
+    if @user_profile
+      redirect_to :root
+    else
+      @user_profile = UserProfile.new(user_profile_params)
+      @user_profile.save
+      respond_with(@user_profile)
+    end
   end
 
   def update
@@ -37,11 +44,15 @@ class UserProfilesController < ApplicationController
   end
 
   private
+    def current_user_id
+      current_user.id
+    end
+
     def set_user_profile
       @user_profile = UserProfile.find(params[:id])
     end
 
     def user_profile_params
-      params[:user_profile]
+      params.require(:user_profile).permit(:start_date, :floor, :department, :last_name, :first_name).merge(user_id: current_user_id)
     end
 end

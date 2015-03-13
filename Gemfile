@@ -34,6 +34,9 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'bootstrap-sass'
+gem 'simple_form'
+
 group :development, :test do
   gem "factory_girl_rails", :require => false
   gem 'pry'
