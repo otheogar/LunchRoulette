@@ -1,4 +1,6 @@
 LunchRoulette::Application.routes.draw do
+  resources :availablities
+
   resources :user_profiles
 
   devise_for :users, :skip => [:registrations], :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

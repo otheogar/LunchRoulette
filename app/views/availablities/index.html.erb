@@ -1,0 +1,25 @@
+<h1>Listing availablities</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @availablities.each do |availablity| %>
+      <tr>
+        <td><%= link_to 'Show', availablity %></td>
+        <td><%= link_to 'Edit', edit_availablity_path(availablity) %></td>
+        <td><%= link_to 'Destroy', availablity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Availablity', new_availablity_path %>

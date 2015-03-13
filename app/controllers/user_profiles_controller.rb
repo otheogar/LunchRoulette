@@ -9,12 +9,17 @@ class UserProfilesController < ApplicationController
   end
 
   def show
-    redirect_to :root
+    redirect_to availablities_path
   end
 
   def new
-    @user_profile = UserProfile.new
-    respond_with(@user_profile)
+    @user_profile = UserProfile.where(user_id: current_user_id).first
+    if @user_profile
+      redirect_to availablities_path
+    else
+      @user_profile = UserProfile.new
+      respond_with(@user_profile)
+    end
   end
 
   def edit
@@ -22,10 +27,8 @@ class UserProfilesController < ApplicationController
 
   def create
     @user_profile = UserProfile.where(user_id: current_user_id).first
-    p 'OANA'
-    p @user_profile
     if @user_profile
-      redirect_to :root
+      redirect_to availablities_path
     else
       @user_profile = UserProfile.new(user_profile_params)
       @user_profile.save
