@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20150313063348) do
 
   create_table "availablities", force: true do |t|
+    t.integer  "user_profile_id"
     t.date     "day"
     t.datetime "created_at"
     t.datetime "updated_at"

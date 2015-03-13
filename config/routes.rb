@@ -1,5 +1,10 @@
 LunchRoulette::Application.routes.draw do
-  resources :availablities
+  resources :availablities do
+    collection do
+      post :update_selected_days
+    end
+  end
+
 
   resources :user_profiles
 

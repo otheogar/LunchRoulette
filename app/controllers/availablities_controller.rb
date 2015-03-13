@@ -8,6 +8,16 @@ class AvailablitiesController < ApplicationController
     respond_with(@availablities)
   end
 
+  def update_selected_days
+    selected_days = params['date_selection']['days_selected'].reject {|day| day.blank?}
+
+    selected_dates = selected_days.map {|day| (Date.today.at_beginning_of_week + Integer(day)).strftime }
+    selected_dates.each do |date|
+      Availablity.create!
+    end
+    render :index
+  end
+
   def show
     respond_with(@availablity)
   end

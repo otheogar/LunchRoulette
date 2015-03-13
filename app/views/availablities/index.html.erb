@@ -1,25 +1,21 @@
-<h1>Listing availablities</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @availablities.each do |availablity| %>
-      <tr>
-        <td><%= link_to 'Show', availablity %></td>
-        <td><%= link_to 'Edit', edit_availablity_path(availablity) %></td>
-        <td><%= link_to 'Destroy', availablity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<h2>Currently selected days for this week</h2>
+<% if @availabilities.present? %>
+  <ul>
+    <% @availabilities.each do |availability| %>
+      <li><%= availability.day %> </li>
     <% end %>
-  </tbody>
-</table>
+  </ul>
+<% else %>
+  No days selected.
+<% end %>
 
-<br>
 
-<%= link_to 'New Availablity', new_availablity_path %>
+<h2>Modify your selection:</h2>
+<%= simple_form_for :date_selection, url: update_selected_days_availablities_path do |f|%>
+
+  <%= f.input :days_selected, required: false, label: false,
+              as: :check_boxes, include_hidden: false,
+              collection: [['Monday', 1], ['Tuesday', 2], ['Wednesday', 3],['Thursday', 4], ['Friday', 5]]  %>
+  <%= f.button :submit %>
+
+<% end %>
