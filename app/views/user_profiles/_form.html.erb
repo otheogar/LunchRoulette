@@ -11,7 +11,18 @@
   <%= f.input :start_date, as: :date, start_year: 2007,
       end_year: Date.today.year, discard_day: true,
       order: [:month, :year] %>
-  <%= f.input :department %>
+  <%= f.input :department, collection: ['Customer Success',
+                                        'Human Resources',
+                                        'Value Added Services',
+                                        'Value Added Services - Acct Mgmt',
+                                        'Sales',
+                                        'Marketing',
+                                        'Finance',
+                                        'Client Services',
+                                        'Implementation',
+                                        'Product Management',
+                                        'Software Engineering',
+                                        'Software Engineering - Web Ops'] %>
   <%= f.input :floor %>
 
   <% if @user_profile.errors.any? %>

@@ -1,21 +1,25 @@
 <h2>Currently selected days for this week</h2>
-<% if @availabilities.present? %>
+<img src="LunchCalendar.png">
+<% if @availablities.present? %>
   <ul>
-    <% @availabilities.each do |availability| %>
-      <li><%= availability.day %> </li>
+    <% @availablities.sort.each do |availability| %>
+      <li><%= Availablity::WEEKDAYS[availability] %> </li>
     <% end %>
   </ul>
 <% else %>
-  No days selected.
+    No days selected.
 <% end %>
 
+<div style="margin-left: 2rem">
+  <h2>Modify your selection:</h2>
+  <%= simple_form_for :date_selection, url: update_selected_days_availablities_path do |f|%>
 
-<h2>Modify your selection:</h2>
-<%= simple_form_for :date_selection, url: update_selected_days_availablities_path do |f|%>
+    <%= f.input :days_selected, required: false, label: false,
+                as: :check_boxes, include_hidden: false,
+                collection: [['Monday', 0], ['Tuesday', 1], ['Wednesday', 2],['Thursday', 3], ['Friday', 4]],
+                checked: @availablities %>
+    <%= f.button :submit %>
 
-  <%= f.input :days_selected, required: false, label: false,
-              as: :check_boxes, include_hidden: false,
-              collection: [['Monday', 1], ['Tuesday', 2], ['Wednesday', 3],['Thursday', 4], ['Friday', 5]]  %>
-  <%= f.button :submit %>
+  <% end %>
+</div>
 
-<% end %>
